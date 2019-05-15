@@ -35,8 +35,13 @@ class MyHomePage extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () => Navigator.pushNamed(context, '/detail'),
-                child: Text('跳转'),
+                child: Text('跳转detail'),
                 color: Colors.green,
+              ),
+              MaterialButton(
+                color: Colors.deepOrange,
+                onPressed: () => Navigator.pushNamed(context, '/listview'),
+                child: Text('跳转listview'),
               )
             ],
           ),
