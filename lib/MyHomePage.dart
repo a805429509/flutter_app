@@ -12,9 +12,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'hehe',
-      home: Scaffold(
+    return Container(
+      child: Scaffold(
         appBar: AppBar(
           title: Center(
             child: Text('主页'),

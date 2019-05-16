@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.cyan[600],
       ),
       initialRoute: '/',
-      routes: {
+      routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => MyHomePage(),
         '/detail': (BuildContext context) => MyDetailPage(),
-        '/listview': (BuildContext context) =>MyListView()
+        '/listview': (BuildContext context) => MyListView()
       },
     );
   }

@@ -22,15 +22,15 @@ class _MyListViewState extends State<MyListView> {
         }
         return Container(
           child: Column(
-            children: <Widget>[_buildRow(_suggestions[i],i), new Divider()],
+            children: <Widget>[_buildRow(_suggestions[i], i), new Divider()],
           ),
         );
       },
     );
   }
 
-  Widget _buildRow(WordPair wordpair,int i) {
-    print('生成'+i.toString());
+  Widget _buildRow(WordPair wordpair, int i) {
+    print('生成' + i.toString());
     return ListTile(
       title: new Text(wordpair.asPascalCase),
     );
@@ -40,9 +40,10 @@ class _MyListViewState extends State<MyListView> {
   Widget build(BuildContext context) {
     //初始给5个长度
     this._suggestions.addAll(ew.generateWordPairs().take(5));
-    return MaterialApp(
-      home: Scaffold(
+    return Container(
+      child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text('title'),
         ),
         body: _buildSuggestions(),
