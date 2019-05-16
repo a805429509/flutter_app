@@ -2,35 +2,54 @@ import 'package:english_words/english_words.dart' as ew;
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
-
 class MyListView extends StatefulWidget {
   @override
   _MyListViewState createState() => _MyListViewState();
 }
 
 class _MyListViewState extends State<MyListView> {
-  final List<WordPair> _suggestions = <WordPair>[];
+  List<WordPair> _suggestions = <WordPair>[];
 
-  Future<Null> _refresh() async {
-    this._suggestions.clear();
-    await this._suggestions.addAll(ew.generateWordPairs().take(20));
-    return;
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  //     new GlobalKey<RefreshIndicatorState>();
+
+  Future<List> _refresh() {
+    return get_data().then((sug) {
+      setState(() {
+        this._suggestions = sug;
+      });
+    });
+  }
+
+  Future<List> get_data() async {
+    List<WordPair> _new_suggestions = <WordPair>[];
+    await _new_suggestions.addAll(ew.generateWordPairs().take(20));
+    return _new_suggestions;
   }
 
   Widget _buildSuggestions() {
     return Container(
       child: Scaffold(
         body: RefreshIndicator(
+          // key: _refreshIndicatorKey,
           onRefresh: _refresh,
-          child: new ListView.builder(itemBuilder: (BuildContext context,int i){
-            if(i>=this._suggestions.length){
-              this._suggestions.addAll(ew.generateWordPairs().take(5));
-            }
-            return Container(child: Column(children: <Widget>[
-              _buildRow(this._suggestions[i], i),
-              new Divider(height: 2.0,),
-            ],),);
-          },),
+          child: new ListView.builder(
+            itemBuilder: (BuildContext context, int i) {
+              if (i >= this._suggestions.length) {
+                this._suggestions.addAll(ew.generateWordPairs().take(5));
+              }
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    _buildRow(this._suggestions[i], i),
+                    new Divider(
+                      height: 2.0,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
