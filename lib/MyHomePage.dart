@@ -10,14 +10,29 @@ class MyHomePage extends StatelessWidget {
     Lamp.turnOff();
   }
 
+  get _driver => Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blueGrey),
+              child: Center(child: Text('drawer')),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('设置'),
+            )
+          ],
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        drawer: _driver,
         appBar: AppBar(
-          title: Center(
-            child: Text('主页'),
-          ),
+          title: Text('主页'),
+          centerTitle: true,
         ),
         body: Center(
           child: Column(

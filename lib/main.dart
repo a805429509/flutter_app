@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'flutter_app',
       theme: new ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[800],
-        accentColor: Colors.cyan[600],
-      ),
+          // brightness: Brightness.dark,
+          // primaryColor: Colors.lightBlue[800],
+          // accentColor: Colors.cyan[600],
+          ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => MyHomePage(),

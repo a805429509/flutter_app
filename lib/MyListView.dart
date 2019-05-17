@@ -13,26 +13,32 @@ class _MyListViewState extends State<MyListView> {
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   //     new GlobalKey<RefreshIndicatorState>();
 
-  Future<List> _refresh() {
-    return get_data().then((sug) {
-      setState(() {
-        this._suggestions = sug;
-      });
-    });
-  }
-
   Future<List> get_data() async {
     List<WordPair> _new_suggestions = <WordPair>[];
     await _new_suggestions.addAll(ew.generateWordPairs().take(20));
     return _new_suggestions;
   }
 
+  Future<List> _onpressed() {
+    return get_data().then((_new_suggestions) {
+      setState(() {
+        this._suggestions = _new_suggestions;
+      });
+    });
+  }
+
   Widget _buildSuggestions() {
     return Container(
       child: Scaffold(
         body: RefreshIndicator(
-          // key: _refreshIndicatorKey,
-          onRefresh: _refresh,
+          // onRefresh: () {
+          //   return get_data().then((sug) {
+          //     setState(() {
+          //       this._suggestions = sug;
+          //     });
+          //   });
+          // },
+          onRefresh: _onpressed,
           child: new ListView.builder(
             itemBuilder: (BuildContext context, int i) {
               if (i >= this._suggestions.length) {
