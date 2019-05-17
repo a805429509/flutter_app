@@ -10,20 +10,21 @@ class MyListView extends StatefulWidget {
 class _MyListViewState extends State<MyListView> {
   List<WordPair> _suggestions = <WordPair>[];
 
-  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  //     new GlobalKey<RefreshIndicatorState>();
-
-  Future<List> get_data() async {
-    List<WordPair> _new_suggestions = <WordPair>[];
-    await _new_suggestions.addAll(ew.generateWordPairs().take(20));
-    return _new_suggestions;
+  @override
+  Widget initState() {
+    //初始给5个长度
+    this._suggestions.addAll(ew.generateWordPairs().take(5));
   }
 
-  Future<List> _onpressed() {
-    return get_data().then((_new_suggestions) {
-      setState(() {
-        this._suggestions = _new_suggestions;
-      });
+  //加一点学习的笔记
+  //一个方法加上了async就变成了异步方法，肯定会返回一个Future对象。
+  //而Future<void>意味着你不需要手动去返回！
+  //一个耗时的操作，比如要请求服务器拿到User数据，那么在内部使用User user=await get_user()获取Future<User> get_user async()数据
+  //或者可以，await get_user.then((user)=>{print(user)}).catch((error)=>{print(error)})直接使用
+  Future<void> _refresh() async {
+    setState(() {
+      this._suggestions.clear();
+      this._suggestions.addAll(ew.generateWordPairs().take(5));
     });
   }
 
@@ -31,14 +32,7 @@ class _MyListViewState extends State<MyListView> {
     return Container(
       child: Scaffold(
         body: RefreshIndicator(
-          // onRefresh: () {
-          //   return get_data().then((sug) {
-          //     setState(() {
-          //       this._suggestions = sug;
-          //     });
-          //   });
-          // },
-          onRefresh: _onpressed,
+          onRefresh: _refresh,
           child: new ListView.builder(
             itemBuilder: (BuildContext context, int i) {
               if (i >= this._suggestions.length) {
@@ -70,8 +64,6 @@ class _MyListViewState extends State<MyListView> {
 
   @override
   Widget build(BuildContext context) {
-    //初始给5个长度
-    this._suggestions.addAll(ew.generateWordPairs().take(5));
     return Container(
       child: Scaffold(
         appBar: AppBar(
