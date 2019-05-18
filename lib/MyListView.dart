@@ -11,7 +11,8 @@ class _MyListViewState extends State<MyListView> {
   List<WordPair> _suggestions = <WordPair>[];
 
   @override
-  Widget initState() {
+  void initState() {
+    super.initState();
     //初始给5个长度
     this._suggestions.addAll(ew.generateWordPairs().take(5));
   }
@@ -65,13 +66,7 @@ class _MyListViewState extends State<MyListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('title'),
-        ),
-        body: _buildSuggestions(),
-      ),
+      child: _buildSuggestions(),
     );
   }
 }

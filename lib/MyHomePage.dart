@@ -1,67 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:lamp/lamp.dart';
+import 'package:flutter_app/MyDetailPage.dart';
+import 'package:flutter_app/MyListView.dart';
+import 'package:flutter_app/MyToolsPage.dart';
 
-class MyHomePage extends StatelessWidget {
-  void _openflashlight() {
-    Lamp.turnOn();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
-  void _closeflashlight() {
-    Lamp.turnOff();
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(vsync: this, length: 3);
   }
-
-  get _driver => Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blueGrey),
-              child: Center(child: Text('drawer')),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('设置'),
-            )
-          ],
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        drawer: _driver,
-        appBar: AppBar(
-          title: Text('主页'),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Column(
+    return MaterialApp(
+      title: 'MyApp',
+      home: Container(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('主页'),
+            centerTitle: true,
+            bottom: TabBar(
+              controller: _tabController,
+              tabs: <Widget>[
+                Tab(child: Text('内容')),
+                Tab(child: Text('列表页')),
+                Tab(child: Text('工具'))
+              ],
+            ),
+          ),
+          body: TabBarView(
+            controller: _tabController,
             children: <Widget>[
-              MaterialButton(
-                onPressed: _openflashlight,
-                child: Text('开灯'),
-                color: Colors.red,
-              ),
-              MaterialButton(
-                onPressed: _closeflashlight,
-                child: Text('关灯'),
-                color: Colors.blue,
-              ),
-              MaterialButton(
-                onPressed: () => Navigator.pushNamed(context, '/detail'),
-                child: Text('跳转detail'),
-                color: Colors.green,
-              ),
-              MaterialButton(
-                color: Colors.deepOrange,
-                onPressed: () => Navigator.pushNamed(context, '/listview'),
-                child: Text('跳转listview'),
-              ),
-              MaterialButton(
-                color: Colors.deepOrange,
-                onPressed: () => Navigator.pushNamed(context, '/bie'),
-                child: Text('bie'),
-              )
+              Tab(child: new MyDetailPage()),
+              Tab(child: new MyListView()),
+              Tab(child: new MyToolsPage())
             ],
           ),
         ),

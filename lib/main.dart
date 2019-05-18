@@ -3,7 +3,6 @@ import 'package:flutter_app/MyDetailPage.dart';
 import 'package:flutter_app/MyHomePage.dart';
 import 'package:flutter_app/MyListView.dart';
 
-import 'bie.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,8 +20,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => MyHomePage(),
         '/detail': (BuildContext context) => MyDetailPage(),
-        '/listview': (BuildContext context) => MyListView(),
-        '/bie': (BuildContext context) => SwipeToRefreshExample()
+        '/listview': (BuildContext context) => MyListView()
       },
     );
   }
