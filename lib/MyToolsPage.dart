@@ -1,9 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:lamp/lamp.dart';
 
-
 class MyToolsPage extends StatelessWidget {
-
   void _openflashlight() {
     Lamp.turnOn();
   }
@@ -12,13 +12,37 @@ class MyToolsPage extends StatelessWidget {
     Lamp.turnOff();
   }
 
+  void _test() {
+    new Timer(new Duration(seconds: 2), () {
+      print('hahaha');
+    });
+    print('1212312312');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Column(children: <Widget>[
-        MaterialButton(color: Colors.blue,child: Text('开灯'),onPressed: _openflashlight,),
-        MaterialButton(color: Colors.orange,child: Text('关灯'),onPressed: _closeflashlight,)
-      ],),),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            MaterialButton(
+              color: Colors.blue,
+              child: Text('开灯'),
+              onPressed: _openflashlight,
+            ),
+            MaterialButton(
+              color: Colors.orange,
+              child: Text('关灯'),
+              onPressed: _closeflashlight,
+            ),
+            MaterialButton(
+              color: Colors.amber,
+              child: Text('测试专用'),
+              onPressed: _test,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

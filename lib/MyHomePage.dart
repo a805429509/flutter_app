@@ -24,12 +24,29 @@ class _MyHomePageState extends State<MyHomePage>
     _tabController = new TabController(vsync: this, length: 3);
   }
 
+  get _drawer => Drawer(
+        child: Column(
+          children: <Widget>[
+            DrawerHeader(
+              child: CircleAvatar(
+                child: Text('haha'),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.security),
+              title: Text('安全'),
+            )
+          ],
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MyApp',
       home: Container(
         child: Scaffold(
+          drawer: _drawer,
           appBar: AppBar(
             title: Text('主页'),
             centerTitle: true,

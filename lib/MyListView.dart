@@ -1,6 +1,8 @@
 import 'package:english_words/english_words.dart' as ew;
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+// import 'package:flutter_app/utils/DialogUtils.dart';
 
 class MyListView extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class MyListView extends StatefulWidget {
 }
 
 class _MyListViewState extends State<MyListView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   List<WordPair> _suggestions = <WordPair>[];
 
   @override
@@ -27,11 +30,16 @@ class _MyListViewState extends State<MyListView> {
       this._suggestions.clear();
       this._suggestions.addAll(ew.generateWordPairs().take(5));
     });
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: Text('刷新成功'),
+      duration: new Duration(milliseconds: 500),
+    ));
   }
 
   Widget _buildSuggestions() {
     return Container(
       child: Scaffold(
+        key: _scaffoldKey,
         body: RefreshIndicator(
           onRefresh: _refresh,
           child: new ListView.builder(
@@ -57,7 +65,6 @@ class _MyListViewState extends State<MyListView> {
   }
 
   Widget _buildRow(WordPair wordpair, int i) {
-    print('生成' + i.toString());
     return ListTile(
       title: new Text(wordpair.asPascalCase),
     );
