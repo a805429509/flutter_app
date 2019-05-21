@@ -117,7 +117,7 @@ class _MyDevicePageState extends State<MyDevicePage> {
                 padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                 child: Text(
                   '${_deviceData[property]}',
-                  overflow: TextOverflow.ellipsis,
+                  // overflow: TextOverflow.ellipsis,
                 ),
               )),
             ],
