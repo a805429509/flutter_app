@@ -36,6 +36,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.2"
+  device_info:
+    dependency: "direct main"
+    description:
+      name: device_info
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0+1"
   english_words:
     dependency: "direct main"
     description:
@@ -76,13 +83,6 @@ packages:
       url: "https://github.com/a805429509/flutter_lamp.git"
     source: git
     version: "0.0.6"
-  loading_view:
-    dependency: transitive
-    description:
-      name: loading_view
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.2"
   matcher:
     dependency: transitive
     description:
@@ -165,13 +165,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.4"
-  tip_dialog:
-    dependency: "direct main"
-    description:
-      name: tip_dialog
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:
@@ -188,3 +181,4 @@ packages:
     version: "2.0.8"
 sdks:
   dart: ">=2.2.0 <3.0.0"
+  flutter: ">=0.1.4 <2.0.0"

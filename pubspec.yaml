@@ -22,15 +22,19 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  # ios风格的图标
   cupertino_icons: ^0.1.2
+  # 生成英语单词
   english_words: ^3.1.5 
+  # http网络请求
   http: ^0.12.0+2
-  tip_dialog: ^2.0.0
+  # 用来打开闪光灯
   lamp:
     git: 
       url: https://github.com/a805429509/flutter_lamp.git
-  # lamp: ^0.0.6
-  # torch: ^0.1.1
+  # 查看设备信息
+  device_info: ^0.4.0+1
+
 
 dev_dependencies:
   flutter_test:

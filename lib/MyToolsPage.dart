@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_app/components/DeviceInfo.dart';
 import 'package:lamp/lamp.dart';
 
 class MyToolsPage extends StatelessWidget {
@@ -39,6 +39,14 @@ class MyToolsPage extends StatelessWidget {
               color: Colors.amber,
               child: Text('测试专用'),
               onPressed: _test,
+            ),
+            MaterialButton(
+              color: Colors.yellow,
+              child: Text('打印设备信息'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyDevicePage()));
+              },
             )
           ],
         ),
