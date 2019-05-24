@@ -12,6 +12,7 @@ class MyDevicePage extends StatefulWidget {
 
 class _MyDevicePageState extends State<MyDevicePage> {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  //这里必须要声明一个空值。在页面渲染的时候，keys的map会报错null
   Map<String, dynamic> _deviceData = <String, dynamic>{};
 
   @override
@@ -95,8 +96,7 @@ class _MyDevicePageState extends State<MyDevicePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-            Platform.isAndroid ? 'Android Device Info' : 'iOS Device Info'),
+        title: Text(Platform.isAndroid ? '你的安卓设备信息' : '你的苹果设备信息'),
       ),
       body: ListView(
         shrinkWrap: true,

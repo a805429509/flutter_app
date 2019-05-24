@@ -50,7 +50,7 @@ class _MyListViewState extends State<MyListView> {
               return Container(
                 child: Column(
                   children: <Widget>[
-                    _buildRow(this._suggestions[i], i),
+                    _buildRow(this._suggestions[i]),
                     new Divider(
                       height: 2.0,
                     ),
@@ -64,7 +64,7 @@ class _MyListViewState extends State<MyListView> {
     );
   }
 
-  Widget _buildRow(WordPair wordpair, int i) {
+  Widget _buildRow(WordPair wordpair) {
     return ListTile(
       title: new Text(wordpair.asPascalCase),
     );
