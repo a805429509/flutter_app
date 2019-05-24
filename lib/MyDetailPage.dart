@@ -3,8 +3,8 @@ import 'package:flutter_app/api/api_91porn.dart';
 
 class MyDetailPage extends StatelessWidget {
   Future<void> haha() async {
-    Api_91porn().getFirstPageTitle().then((data) {
-      print(data.outerHtml);
+    Api91Porn().getFirstPageTitle().then((data) {
+      print(data);
     });
   }
 
