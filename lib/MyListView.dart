@@ -10,7 +10,7 @@ class MyListView extends StatefulWidget {
 }
 
 class _MyListViewState extends State<MyListView> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey2 = new GlobalKey();
   List<WordPair> _suggestions = <WordPair>[];
 
   @override
@@ -30,7 +30,7 @@ class _MyListViewState extends State<MyListView> {
       this._suggestions.clear();
       this._suggestions.addAll(ew.generateWordPairs().take(5));
     });
-    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+    _scaffoldKey2.currentState.showSnackBar(new SnackBar(
       content: Text('刷新成功'),
       duration: new Duration(milliseconds: 500),
     ));
@@ -39,7 +39,7 @@ class _MyListViewState extends State<MyListView> {
   Widget _buildSuggestions() {
     return Container(
       child: Scaffold(
-        key: _scaffoldKey,
+        key: _scaffoldKey2,
         body: RefreshIndicator(
           onRefresh: _refresh,
           child: new ListView.builder(
