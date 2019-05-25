@@ -36,6 +36,7 @@ class _MyDevicePageState extends State<MyDevicePage> {
       };
     }
 
+    // 如果取消了这个widget显示，那么就不调用setState来刷新页面
     if (!mounted) return;
 
     setState(() {
