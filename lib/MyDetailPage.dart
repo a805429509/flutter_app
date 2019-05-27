@@ -32,7 +32,12 @@ class _MyDetailPageState extends State<MyDetailPage> {
         if (this.data.length == 0) {
           return Text(i.toString());
         } else {
-          return ListTile(title: Text(this.data[i].title));
+          return ListTile(
+            title: Text(
+              this.data[i].title,
+              style: TextStyle(fontSize: 8.0),
+            ),
+          );
         }
       },
     );
