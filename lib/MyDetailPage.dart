@@ -8,38 +8,60 @@ class MyDetailPage extends StatefulWidget {
 }
 
 class _MyDetailPageState extends State<MyDetailPage> {
-  List<VideoInfo> data = [];
+  List<VideoInfo91> data = [];
+  int pageNum = 1;
 
   @override
   void initState() {
     super.initState();
-    get_video();
+    getVideo();
   }
 
-  Future<List<VideoInfo>> get_video() async {
+  Future<void> getVideo() async {
     debugPrint('123');
-    List<VideoInfo> _data = await Api91Porn().getFirstPage();
+    List<VideoInfo91> _data =
+        await Api91Porn().getFirstPage(this.pageNum.toString());
     debugPrint(_data.length.toString());
     setState(() {
-      this.data = _data;
+      this.data.addAll(_data);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, i) {
-        if (this.data.length == 0) {
-          return Text(i.toString());
-        } else {
-          return ListTile(
-            title: Text(
-              this.data[i].title,
-              style: TextStyle(fontSize: 8.0),
-            ),
-          );
-        }
-      },
-    );
+    if (this.data.length == 0) {
+      return Center(
+        child: Text('数据加载中..........'),
+      );
+    } else {
+      return ListView.builder(
+        itemBuilder: (context, i) {
+          if (i >= this.data.length - 10) {
+            this.pageNum += 1;
+            getVideo();
+          }
+          return Container(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                children: <Widget>[
+                  Image.network(
+                    this.data[i].img_url,
+                    height: 90.0,
+                    width: 120.0,
+                    fit: BoxFit.cover,
+                  ),
+                  new Expanded(
+                      child: ListTile(
+                    title: Text(
+                      this.data[i].title,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ))
+                ],
+              ));
+        },
+      );
+    }
   }
 }
