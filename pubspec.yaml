@@ -31,6 +31,8 @@ dependencies:
   dio: 2.1.5
   # 解析html的时候要用到xpath
   xpath: ^0.1.0
+  # 视频播放器
+  video_player: ^0.10.1
   # 中文
   gbk2utf8: ^1.0.1
   # 解析html页面
