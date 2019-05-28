@@ -8,9 +8,13 @@ class MyDetailPage extends StatefulWidget {
   _MyDetailPageState createState() => _MyDetailPageState();
 }
 
-class _MyDetailPageState extends State<MyDetailPage> {
+class _MyDetailPageState extends State<MyDetailPage>
+    with AutomaticKeepAliveClientMixin {
   List<VideoInfo91> data = [];
   int pageNum = 1;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {

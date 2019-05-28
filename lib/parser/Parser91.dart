@@ -3,16 +3,18 @@ import 'package:html/dom.dart';
 import 'package:xpath/xpath.dart';
 import 'package:html/parser.dart' show parse;
 
-class ParserList91 {
+class Parser91 {
   String pageData;
+  Document document;
 
-  ParserList91(this.pageData);
+  Parser91(this.pageData) {
+    document = parse(this.pageData);
+  }
 
-  List<VideoInfo91> parseData() {
-    List<VideoInfo91> hehe;
-    var document = parse(pageData);
-    var listchannel = document.querySelectorAll('.listchannel');
-    hehe = listchannel.map((item) {
+  List<VideoInfo91> parseListData() {
+    List<VideoInfo91> data;
+    var listchannel = this.document.querySelectorAll('.listchannel');
+    data = listchannel.map((item) {
       //拿到标题
       var title = item.querySelectorAll('a')[1].attributes['title'];
       //拿到视频地址
@@ -34,6 +36,12 @@ class ParserList91 {
       // debugPrint(duration);
       return VideoInfo91(title, imageUrl, videoPage);
     }).toList();
-    return hehe;
+    return data;
+  }
+
+  String parseDetailData() {
+    String data;
+    data = this.document.querySelector('source').attributes['src'];
+    return data;
   }
 }

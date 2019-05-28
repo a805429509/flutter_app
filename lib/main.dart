@@ -3,7 +3,6 @@ import 'package:flutter_app/MyDetailPage.dart';
 import 'package:flutter_app/MyHomePage.dart';
 import 'package:flutter_app/MyListView.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -18,9 +17,7 @@ class MyApp extends StatelessWidget {
           ),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => MyHomePage(),
-        '/detail': (BuildContext context) => MyDetailPage(),
-        '/listview': (BuildContext context) => MyListView()
+        '/': (BuildContext context) => MyHomePage()
       },
     );
   }

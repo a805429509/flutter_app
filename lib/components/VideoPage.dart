@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/api/api_91porn.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatefulWidget {
-  final String videoUrl;
+  final String videoPage;
 
-  const VideoPage(this.videoUrl);
+  const VideoPage(this.videoPage);
 
   @override
   _VideoPageState createState() => _VideoPageState();
@@ -12,14 +13,34 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   VideoPlayerController _controller;
+  String videoUrl = '';
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.videoUrl)
+    getVideoUrl();
+
+    _controller = VideoPlayerController.network(
+        'http://techslides.com/demos/sample-videos/small.mp4')
       ..initialize().then((_) {
         setState(() {});
       });
+    // _controller = VideoPlayerController.network(widget.videoPage)
+    //   ..initialize().then((_) {
+    //     setState(() {});
+    //   });
+  }
+
+  Future<void> getVideoUrl() async {
+    var _videoUrl = await Api91PornDetail(widget.videoPage).getVideoUrl();
+    setState(() {
+      this.videoUrl = _videoUrl;
+      this._controller = VideoPlayerController.network(
+          'http://192.240.120.34//mp43/318396.mp4?st=kB4UnV1DMVRIjc7eqs4osA&e=1559105784')
+        ..initialize().then((_) {
+          setState(() {});
+        });
+    });
   }
 
   @override
