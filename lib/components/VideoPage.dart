@@ -35,8 +35,9 @@ class _VideoPageState extends State<VideoPage> {
     var _videoUrl = await Api91PornDetail(widget.videoPage).getVideoUrl();
     setState(() {
       this.videoUrl = _videoUrl;
+      this._controller.dispose();
       this._controller = VideoPlayerController.network(
-          'http://192.240.120.34//mp43/318396.mp4?st=kB4UnV1DMVRIjc7eqs4osA&e=1559105784')
+          'http://techslides.com/demos/sample-videos/small.mp4')
         ..initialize().then((_) {
           setState(() {});
         });

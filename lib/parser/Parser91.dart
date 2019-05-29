@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/entity/video.dart';
 import 'package:html/dom.dart';
 import 'package:xpath/xpath.dart';
@@ -41,6 +42,8 @@ class Parser91 {
 
   String parseDetailData() {
     String data;
+    var jj = this.document.querySelector('source');
+    debugPrint('12');
     data = this.document.querySelector('source').attributes['src'];
     return data;
   }

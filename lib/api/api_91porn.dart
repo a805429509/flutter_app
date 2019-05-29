@@ -42,9 +42,9 @@ class Api91PornDetail {
   };
 
   Future<String> getVideoUrl() async {
-    var DetailPageData =
+    var detailPageData =
         await Dio().get(this.url, options: Options(headers: this.headers));
-    var data = Parser91(DetailPageData.data).parseDetailData();
+    var data = Parser91(detailPageData.data).parseDetailData();
     return data;
   }
 }
