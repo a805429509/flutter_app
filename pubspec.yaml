@@ -32,9 +32,7 @@ dependencies:
   # 解析html的时候要用到xpath
   xpath: ^0.1.0
   # 视频播放器
-  video_player: ^0.10.1
-  # 中文
-  gbk2utf8: ^1.0.1
+  chewie: ^0.9.7
   # 解析html页面
   html: ^0.14.0+2
   # 用来打开闪光灯

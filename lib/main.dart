@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/MyDetailPage.dart';
 import 'package:flutter_app/MyHomePage.dart';
-import 'package:flutter_app/MyListView.dart';
 
 void main() => runApp(MyApp());
 

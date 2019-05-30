@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/entity/video.dart';
 import 'package:html/dom.dart';
 import 'package:xpath/xpath.dart';
@@ -28,8 +26,8 @@ class Parser91 {
           imageUrl = item.attributes['src'];
         }
       }
-      // var img_url = item.querySelectorAll('img')[1].attributes['src'];
-      //拿到时长
+
+      // TODO:拿到时长
       // var duration = item.querySelector('');
       // var tree = ETree.fromString(this.pageData);
       // var duration = tree.xpath('//*[contains(@class,"info")])');
@@ -42,14 +40,14 @@ class Parser91 {
   List<String> parseDetailData() {
     RegExp reg1 = new RegExp(r'strencode\(\".*\"\)');
     var match1 = reg1.firstMatch(this.pageData);
-    var xx = match1.group(0).toString();
+    var decodeCode = match1.group(0).toString();
 
     RegExp reg2 = RegExp(r'\".*?\"');
-    var xx2 = reg2.allMatches(xx);
-    var param1 = xx2.toList()[0].group(0).toString().replaceAll('\"', "");
-    var param2 = xx2.toList()[1].group(0).toString().replaceAll('\"', "");
-    debugPrint(param1);
-    debugPrint(param2);
+    var paramIterable = reg2.allMatches(decodeCode);
+    var param1 =
+        paramIterable.toList()[0].group(0).toString().replaceAll('\"', "");
+    var param2 =
+        paramIterable.toList()[1].group(0).toString().replaceAll('\"', "");
     return [param1, param2];
   }
 }

@@ -25,7 +25,7 @@ class _MyDetailPageState extends State<MyDetailPage>
   Future<void> getVideo() async {
     List<VideoInfo91> _data =
         await Api91PornList().getPageData(this.pageNum.toString());
-    debugPrint(_data.length.toString());
+    debugPrint('首页新加载的条数:' + _data.length.toString());
     setState(() {
       this.data.addAll(_data);
     });
@@ -35,6 +35,7 @@ class _MyDetailPageState extends State<MyDetailPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (this.data.length == 0) {
       return Center(
         child: Text('数据加载中..........'),
@@ -48,8 +49,6 @@ class _MyDetailPageState extends State<MyDetailPage>
           }
           return GestureDetector(
             onTap: () {
-              //TODO 这里要用一个解析方法获取视频的播放地址。并且要更换ip地址来请求
-
               Navigator.push(
                   context,
                   MaterialPageRoute(

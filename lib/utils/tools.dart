@@ -15,6 +15,7 @@ class Tools {
         this.next(1, 254).toString() +
         '.' +
         this.next(1, 254).toString();
+    return ip;
   }
 
   Map<String, String> getFakeHeaders() {
