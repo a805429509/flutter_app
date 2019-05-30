@@ -1,6 +1,9 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter_app/entity/video.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_app/parser/Parser91.dart';
+import 'package:html/parser.dart' show parse;
+import 'dart:convert';
 
 class Api91PornList {
   String url = 'http://91porn.com/video.php?category=rf&page=';
@@ -45,6 +48,13 @@ class Api91PornDetail {
     var detailPageData =
         await Dio().get(this.url, options: Options(headers: this.headers));
     var data = Parser91(detailPageData.data).parseDetailData();
-    return data;
+    // var videoUrlElement = await Dio().post('https://kentxxq.com/nodeapi/',
+    //     data: {"token": "qwer", "param1": data[0], "param2": data[1]});
+    var videoUrlElement = await Dio().post('https://kentxxq.com/nodeapi/',
+        data: {"token": "qwer", "param1": data[0], "param2": data[1]});
+    var document = parse(videoUrlElement.data);
+    var videoUrl =
+        document.querySelector('source').attributes['src'].toString();
+    return videoUrl;
   }
 }

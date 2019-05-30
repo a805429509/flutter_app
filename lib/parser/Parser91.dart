@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/entity/video.dart';
 import 'package:html/dom.dart';
@@ -6,15 +7,13 @@ import 'package:html/parser.dart' show parse;
 
 class Parser91 {
   String pageData;
-  Document document;
 
-  Parser91(this.pageData) {
-    document = parse(this.pageData);
-  }
+  Parser91(this.pageData);
 
   List<VideoInfo91> parseListData() {
+    var document = parse(this.pageData);
     List<VideoInfo91> data;
-    var listchannel = this.document.querySelectorAll('.listchannel');
+    var listchannel = document.querySelectorAll('.listchannel');
     data = listchannel.map((item) {
       //拿到标题
       var title = item.querySelectorAll('a')[1].attributes['title'];
@@ -40,11 +39,17 @@ class Parser91 {
     return data;
   }
 
-  String parseDetailData() {
-    String data;
-    var jj = this.document.querySelector('source');
-    debugPrint('12');
-    data = this.document.querySelector('source').attributes['src'];
-    return data;
+  List<String> parseDetailData() {
+    RegExp reg1 = new RegExp(r'strencode\(\".*\"\)');
+    var match1 = reg1.firstMatch(this.pageData);
+    var xx = match1.group(0).toString();
+
+    RegExp reg2 = RegExp(r'\".*?\"');
+    var xx2 = reg2.allMatches(xx);
+    var param1 = xx2.toList()[0].group(0).toString().replaceAll('\"', "");
+    var param2 = xx2.toList()[1].group(0).toString().replaceAll('\"', "");
+    debugPrint(param1);
+    debugPrint(param2);
+    return [param1, param2];
   }
 }
