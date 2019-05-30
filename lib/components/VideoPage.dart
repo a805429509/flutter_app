@@ -20,11 +20,9 @@ class _VideoPageState extends State<VideoPage> {
     super.initState();
     getVideoUrl();
 
+    // 给一个默认的地址。不然会有问题。。
     _controller = VideoPlayerController.network(
-        'http://techslides.com/demos/sample-videos/small.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-      });
+        'http://techslides.com/demos/sample-videos/small.mp4');
   }
 
   @override
@@ -35,12 +33,13 @@ class _VideoPageState extends State<VideoPage> {
 
   Future<void> getVideoUrl() async {
     var _videoUrl = await Api91PornDetail(widget.videoPage).getVideoUrl();
+    debugPrint(_videoUrl);
     setState(() {
       this.videoUrl = _videoUrl;
-      // this._controller.dispose();
       this._controller = VideoPlayerController.network(this.videoUrl)
         ..initialize().then((_) {
           setState(() {});
+          this._controller.play();
         });
     });
   }
@@ -58,7 +57,11 @@ class _VideoPageState extends State<VideoPage> {
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
               )
-            : Container(),
+            : Container(
+                child: Center(
+                  child: Text('正在加载中。。。。'),
+                ),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

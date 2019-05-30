@@ -4,11 +4,14 @@ PODS:
   - Flutter (1.0.0)
   - lamp (0.0.1):
     - Flutter
+  - video_player (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - lamp (from `.symlinks/plugins/lamp/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
 
 EXTERNAL SOURCES:
   device_info:
@@ -17,12 +20,15 @@ EXTERNAL SOURCES:
     :path: ".symlinks/flutter/ios"
   lamp:
     :path: ".symlinks/plugins/lamp/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
   device_info: 3ebad48f726348f69abd802f3334a8d1ed795fbd
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   lamp: d36cd3552d535c77ab49112704c0c9386b9268bb
+  video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
 
 PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.0
