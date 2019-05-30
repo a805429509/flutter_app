@@ -25,10 +25,12 @@ class _VideoPageState extends State<VideoPage> {
       ..initialize().then((_) {
         setState(() {});
       });
-    // _controller = VideoPlayerController.network(widget.videoPage)
-    //   ..initialize().then((_) {
-    //     setState(() {});
-    //   });
+  }
+
+  @override
+  void dispose() {
+    this._controller.dispose();
+    super.dispose();
   }
 
   Future<void> getVideoUrl() async {
