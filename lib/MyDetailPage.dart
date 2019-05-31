@@ -31,6 +31,13 @@ class _MyDetailPageState extends State<MyDetailPage>
     });
   }
 
+  Future<void> _onRefresh() async {
+    setState(() {
+      this.data.clear();
+    });
+    getVideo();
+  }
+
   void toVideoPage(String url) {}
 
   @override
@@ -41,41 +48,45 @@ class _MyDetailPageState extends State<MyDetailPage>
         child: Text('数据加载中..........'),
       );
     } else {
-      return ListView.builder(
-        itemBuilder: (context, i) {
-          if (i >= this.data.length - 10) {
-            this.pageNum += 1;
-            getVideo();
-          }
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VideoPage(this.data[i].videoPage)));
-            },
-            child: Container(
-                padding: EdgeInsets.all(8),
-                child: Row(
-                  children: <Widget>[
-                    Image.network(
-                      this.data[i].imgURL,
-                      height: 90.0,
-                      width: 120.0,
-                      fit: BoxFit.cover,
-                    ),
-                    new Expanded(
-                        child: ListTile(
-                      title: Text(
-                        this.data[i].title,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+      return RefreshIndicator(
+        onRefresh: _onRefresh,
+        child: ListView.builder(
+          itemBuilder: (context, i) {
+            if (i >= this.data.length - 10) {
+              this.pageNum += 1;
+              getVideo();
+            }
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            VideoPage(this.data[i].videoPage)));
+              },
+              child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Row(
+                    children: <Widget>[
+                      Image.network(
+                        this.data[i].imgURL,
+                        height: 90.0,
+                        width: 120.0,
+                        fit: BoxFit.cover,
                       ),
-                    ))
-                  ],
-                )),
-          );
-        },
+                      new Expanded(
+                          child: ListTile(
+                        title: Text(
+                          this.data[i].title,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ))
+                    ],
+                  )),
+            );
+          },
+        ),
       );
     }
   }
