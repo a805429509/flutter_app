@@ -33,6 +33,8 @@ dependencies:
   xpath: ^0.1.0
   # 视频播放器
   chewie: ^0.9.7
+  # 检查网络连接
+  connectivity: ^0.4.3+2
   # 解析html页面
   html: ^0.14.0+2
   # 用来打开闪光灯
@@ -53,7 +55,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets: 
+    - images/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
