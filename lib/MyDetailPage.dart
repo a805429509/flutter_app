@@ -83,8 +83,8 @@ class _MyDetailPageState extends State<MyDetailPage>
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            VideoPage(this.data[i].videoPage)));
+                        builder: (context) => VideoPage(
+                            this.data[i].title, this.data[i].videoPage)));
               },
               child: Container(
                   padding: EdgeInsets.all(8),

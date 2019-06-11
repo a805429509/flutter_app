@@ -5,8 +5,9 @@ import 'package:chewie/chewie.dart';
 
 class VideoPage extends StatefulWidget {
   final String videoPage;
+  final String videoName;
 
-  const VideoPage(this.videoPage);
+  const VideoPage(this.videoName, this.videoPage);
 
   @override
   _VideoPageState createState() => _VideoPageState();
@@ -23,8 +24,9 @@ class _VideoPageState extends State<VideoPage> {
     getVideoUrl();
 
     // 给一个默认的地址。不然会有问题。。
-    this._controller = VideoPlayerController.network(
-        'http://techslides.com/demos/sample-videos/small.mp4');
+    this._controller = VideoPlayerController.asset('videos/small.mp4');
+    // this._controller = VideoPlayerController.network(
+    //     'http://techslides.com/demos/sample-videos/small.mp4');
     this._chewieController = ChewieController(
         videoPlayerController: this._controller,
         aspectRatio: 3 / 2,
@@ -58,7 +60,7 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('视频页'),
+        title: Text(widget.videoName),
         centerTitle: true,
       ),
       body: Chewie(

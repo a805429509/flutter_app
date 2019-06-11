@@ -5,16 +5,16 @@ import 'package:flutter_app/utils/tools.dart';
 import 'package:html/parser.dart' show parse;
 
 class Api91PornList {
-  String url = 'http://91porn.com/video.php?category=rf&page=';
+  String url = 'http://91porn.com/v.php?next=watch&page=';
 
-  Map<String, String> headers = Tools().getFakeHeaders();
+  Map<String, String> headers = Tools.getFakeHeaders();
 
-  Future<List<VideoInfo91>> getPageData(String pageNum) async {
+  Future<List<VideoInfo91>> getPageData(String pageUrl, String pageNum) async {
     // 请求数据拿到页面
     // http会解析utf-8会有错误
     // var pageData = await http.get(this.url, headers: this.headers);
     var listPageData = await Dio()
-        .get(this.url + pageNum, options: Options(headers: this.headers));
+        .get(pageUrl + pageNum, options: Options(headers: this.headers));
 
     // 只把string传过去，解析相关的全部拿走
     var data = Parser91(listPageData.data).parseListData();
@@ -27,7 +27,7 @@ class Api91PornDetail {
   String url;
   Api91PornDetail(this.url);
 
-  Map<String, String> headers = Tools().getFakeHeaders();
+  Map<String, String> headers = Tools.getFakeHeaders();
 
   Future<String> getVideoUrl() async {
     var detailPageData =
