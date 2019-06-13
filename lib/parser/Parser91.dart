@@ -1,6 +1,4 @@
 import 'package:flutter_app/entity/video.dart';
-import 'package:html/dom.dart';
-import 'package:xpath/xpath.dart';
 import 'package:html/parser.dart' show parse;
 
 class Parser91 {
@@ -13,11 +11,11 @@ class Parser91 {
     List<VideoInfo91> data;
     var listchannel = document.querySelectorAll('.listchannel');
     data = listchannel.map((item) {
-      //拿到标题
+      // 拿到标题
       var title = item.querySelectorAll('a')[1].attributes['title'];
-      //拿到视频地址
+      // 拿到视频地址
       var videoPage = item.querySelectorAll('a')[1].attributes['href'];
-      //拿到图片的url
+      // 拿到图片的url
       String imageUrl = '';
       var imageUrls = item.querySelectorAll('img');
       for (var item in imageUrls) {
@@ -27,12 +25,21 @@ class Parser91 {
         }
       }
 
-      // TODO:拿到时长
+      // 拿到时长
+      RegExp regDuration = new RegExp(r'\d{1,3}\:\d{2}');
+      var duration = regDuration.firstMatch(item.outerHtml).group(0).toString();
+
+      // 拿到上传时间
+      RegExp regPostDate = new RegExp(r'\d.*前');
+      var postDate = regPostDate.firstMatch(item.outerHtml).group(0).toString();
+
+      // 拿到作者
+
       // var duration = item.querySelector('');
       // var tree = ETree.fromString(this.pageData);
       // var duration = tree.xpath('//*[contains(@class,"info")])');
       // debugPrint(duration);
-      return VideoInfo91(title, imageUrl, videoPage);
+      return VideoInfo91(title, imageUrl, videoPage, duration, postDate);
     }).toList();
     return data;
   }

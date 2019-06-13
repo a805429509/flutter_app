@@ -5,6 +5,10 @@ import 'package:flutter_app/components/VideoPage.dart';
 import 'package:flutter_app/entity/video.dart';
 
 class MyDetailPage extends StatefulWidget {
+  final String url;
+
+  MyDetailPage(this.url);
+
   @override
   _MyDetailPageState createState() => _MyDetailPageState();
 }
@@ -26,8 +30,8 @@ class _MyDetailPageState extends State<MyDetailPage>
 
   Future<void> getVideo() async {
     try {
-      List<VideoInfo91> _data =
-          await Api91PornList().getPageData(this.pageNum.toString());
+      List<VideoInfo91> _data = await Api91PornList()
+          .getPageData(widget.url, this.pageNum.toString());
       setState(() {
         this.data.addAll(_data);
         debugPrint('首页新加载的条数:' + _data.length.toString());
@@ -45,6 +49,39 @@ class _MyDetailPageState extends State<MyDetailPage>
       this.data.clear();
     });
     getVideo();
+  }
+
+  Widget content(VideoInfo91 item) {
+    return Container(
+        padding: EdgeInsets.all(8),
+        child: Row(
+          children: <Widget>[
+            FadeInImage.assetNetwork(
+              placeholder: 'images/huaji.jpeg',
+              height: 90.0,
+              width: 120.0,
+              fit: BoxFit.cover,
+              image: item.imgURL,
+            ),
+            new Expanded(
+                child: ListTile(
+              title: Text(
+                item.title,
+                // overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              // subtitle: Text('时长' + item.duration),
+              subtitle: Row(
+                children: <Widget>[
+                  Text('时长:' + item.duration),
+                  Text('时长:' + item.duration),
+                  Text('上传时间:' + item.postDate)
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+            ))
+          ],
+        ));
   }
 
   @override
@@ -78,7 +115,7 @@ class _MyDetailPageState extends State<MyDetailPage>
               this.pageNum += 1;
               getVideo();
             }
-            return GestureDetector(
+            var gestureDetector = GestureDetector(
               onTap: () {
                 Navigator.push(
                     context,
@@ -86,28 +123,9 @@ class _MyDetailPageState extends State<MyDetailPage>
                         builder: (context) => VideoPage(
                             this.data[i].title, this.data[i].videoPage)));
               },
-              child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Row(
-                    children: <Widget>[
-                      FadeInImage.assetNetwork(
-                        placeholder: 'images/huaji.jpeg',
-                        height: 90.0,
-                        width: 120.0,
-                        fit: BoxFit.cover,
-                        image: this.data[i].imgURL,
-                      ),
-                      new Expanded(
-                          child: ListTile(
-                        title: Text(
-                          this.data[i].title,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ))
-                    ],
-                  )),
+              child: content(this.data[i]),
             );
+            return gestureDetector;
           },
         ),
       );

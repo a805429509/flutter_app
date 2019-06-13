@@ -7,6 +7,8 @@ class VideoInfo91 {
   String imgURL; //图片地址
   int comments; //留言数
   String videoPage; //视频页地址
+  String postDate; //上传时间
 
-  VideoInfo91(this.title, this.imgURL, this.videoPage);
+  VideoInfo91(
+      this.title, this.imgURL, this.videoPage, this.duration, this.postDate);
 }

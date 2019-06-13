@@ -5,8 +5,6 @@ import 'package:flutter_app/utils/tools.dart';
 import 'package:html/parser.dart' show parse;
 
 class Api91PornList {
-  String url = 'http://91porn.com/v.php?next=watch&page=';
-
   Map<String, String> headers = Tools.getFakeHeaders();
 
   Future<List<VideoInfo91>> getPageData(String pageUrl, String pageNum) async {

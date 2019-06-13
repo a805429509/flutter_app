@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/MyDetailPage.dart';
-import 'package:flutter_app/MyListView.dart';
-import 'package:flutter_app/MyToolsPage.dart';
 import 'package:flutter_app/config/Config91.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,6 +10,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  int _currentIndex = 0;
 
   @override
   void dispose() {
@@ -50,44 +49,38 @@ class _MyHomePageState extends State<MyHomePage>
         child: Scaffold(
           drawer: _drawer,
           appBar: AppBar(
-            title: Text('主页'),
+            // TODO:这里的title也需要通过底部菜单动态切换
+            title: Text('kentxxq'),
             centerTitle: true,
             bottom: TabBar(
                 isScrollable: true,
                 controller: _tabController,
                 tabs: Config91.videoCategories.keys.map((String key) {
                   return Tab(child: Text(key));
-                }).toList()
-                // tabs: <Widget>[
-                //   Tab(child: Text('内容')),
-                //   Tab(child: Text('列表页')),
-                //   Tab(child: Text('工具')),
-                //   Tab(child: Text('工具')),
-                //   Tab(child: Text('工具')),
-                //   Tab(child: Text('工具')),
-                //   Tab(child: Text('工具')),
-                //   Tab(child: Text('工具'))
-                // ],
-                ),
+                }).toList()),
           ),
+          // TODO:这里的body需要通过底部菜单动态切换
           body: TabBarView(
               controller: _tabController,
               children: Config91.videoCategories.values.map((String url) {
                 return Tab(
-                  child: new MyDetailPage(),
+                  child: new MyDetailPage(url),
                 );
-              }).toList()
-              // children: <Widget>[
-              //   Tab(child: new MyDetailPage()),
-              //   Tab(child: new MyListView()),
-              //   Tab(child: new MyToolsPage()),
-              //   Tab(child: new MyToolsPage()),
-              //   Tab(child: new MyToolsPage()),
-              //   Tab(child: new MyToolsPage()),
-              //   Tab(child: new MyToolsPage()),
-              //   Tab(child: new MyToolsPage())
-              // ],
-              ),
+              }).toList()),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (int index) {
+              setState(() {
+                this._currentIndex = index;
+              });
+            },
+            currentIndex: _currentIndex,
+            items: [
+              BottomNavigationBarItem(
+                  icon: new Icon(Icons.home), title: Text('91Porn')),
+              BottomNavigationBarItem(
+                  icon: new Icon(Icons.wifi), title: Text('wifi'))
+            ],
+          ),
         ),
       ),
     );
