@@ -4,16 +4,16 @@ import 'package:flutter_app/api/api_91porn.dart';
 import 'package:flutter_app/components/VideoPage.dart';
 import 'package:flutter_app/entity/video.dart';
 
-class MyDetailPage extends StatefulWidget {
+class My91TabPage extends StatefulWidget {
   final String url;
 
-  MyDetailPage(this.url);
+  My91TabPage(this.url);
 
   @override
-  _MyDetailPageState createState() => _MyDetailPageState();
+  _My91TabPageState createState() => _My91TabPageState();
 }
 
-class _MyDetailPageState extends State<MyDetailPage>
+class _My91TabPageState extends State<My91TabPage>
     with AutomaticKeepAliveClientMixin {
   List<VideoInfo91> data = [];
   int pageNum = 1;
