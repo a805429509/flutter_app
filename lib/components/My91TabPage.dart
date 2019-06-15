@@ -37,6 +37,7 @@ class _My91TabPageState extends State<My91TabPage>
         debugPrint('首页新加载的条数:' + _data.length.toString());
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         debugPrint('网络不可用');
         this.network = false;

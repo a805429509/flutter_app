@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/config/Config91.dart';
 import 'package:flutter_app/pages/My91Page.dart';
+import 'package:flutter_app/pages/MyToolsPage.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -9,8 +9,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
-  List<Widget> homeContent = [];
+  List<Widget> homeContent = [My91Page(), MyToolsPage()];
 
+  // 准备挪走
   // get _drawer => Drawer(
   //       child: Column(
   //         children: <Widget>[
@@ -32,47 +33,21 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       title: 'MyApp',
       home: Scaffold(
-        body: My91Page(),
+        body: homeContent[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            setState(() {
+              this._currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.wc), title: Text('91Porn')),
+            BottomNavigationBarItem(icon: Icon(Icons.build), title: Text('工具箱'))
+          ],
+        ),
       ),
-      // home: My91Page(),
-      // home: Container(
-      //   child: Scaffold(
-      //     // drawer: _drawer,
-      //     appBar: AppBar(
-      //       // TODO:这里的title也需要通过底部菜单动态切换
-      //       // title: Text('kentxxq'),
-      //       // centerTitle: true,
-      //       bottom: TabBar(
-      //           isScrollable: true,
-      //           controller: _tabController,
-      //           tabs: Config91.videoCategories.keys.map((String key) {
-      //             return Tab(child: Text(key));
-      //           }).toList()),
-      //     ),
-      //     // TODO:这里的body需要通过底部菜单动态切换
-      //     body: TabBarView(
-      //         controller: _tabController,
-      //         children: Config91.videoCategories.values.map((String url) {
-      //           return Tab(
-      //             child: new My91TabPage(url),
-      //           );
-      //         }).toList()),
-      //     bottomNavigationBar: BottomNavigationBar(
-      //       onTap: (int index) {
-      //         setState(() {
-      //           this._currentIndex = index;
-      //         });
-      //       },
-      //       currentIndex: _currentIndex,
-      //       items: [
-      //         BottomNavigationBarItem(
-      //             icon: new Icon(Icons.wc), title: Text('91Porn')),
-      //         BottomNavigationBarItem(
-      //             icon: new Icon(Icons.build), title: Text('工具'))
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

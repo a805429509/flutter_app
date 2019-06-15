@@ -21,34 +21,40 @@ class MyToolsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            MaterialButton(
-              color: Colors.blue,
-              child: Text('开灯'),
-              onPressed: _openflashlight,
-            ),
-            MaterialButton(
-              color: Colors.orange,
-              child: Text('关灯'),
-              onPressed: _closeflashlight,
-            ),
-            MaterialButton(
-              color: Colors.amber,
-              child: Text('测试专用'),
-              onPressed: _test,
-            ),
-            MaterialButton(
-              color: Colors.yellow,
-              child: Text('打印设备信息'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyDevicePage()));
-              },
-            )
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('工具箱'),
+        centerTitle: true,
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              MaterialButton(
+                color: Colors.blue,
+                child: Text('开灯'),
+                onPressed: _openflashlight,
+              ),
+              MaterialButton(
+                color: Colors.orange,
+                child: Text('关灯'),
+                onPressed: _closeflashlight,
+              ),
+              MaterialButton(
+                color: Colors.amber,
+                child: Text('测试专用'),
+                onPressed: _test,
+              ),
+              MaterialButton(
+                color: Colors.yellow,
+                child: Text('打印设备信息'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyDevicePage()));
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

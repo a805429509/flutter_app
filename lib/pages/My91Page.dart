@@ -26,47 +26,31 @@ class _My91PageState extends State<My91Page>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        TabBar(
-            isScrollable: true,
-            controller: _tabController,
-            tabs: Config91.videoCategories.keys.map((String key) {
-              return Tab(
-                  child: Text(
-                key,
-                style: TextStyle(backgroundColor: Colors.blue),
-              ));
-            }).toList()),
-        // TabBarView(
-        //     controller: _tabController,
-        //     children: Config91.videoCategories.values.map((String url) {
-        //       return Tab(
-        //         child: new My91TabPage(url),
-        //       );
-        //     }).toList()),
-      ],
-      //     child: Scaffold(
-      //   // drawer: _drawer,
-      //   appBar: AppBar(
-      //     // title: Text('kentxxq'),
-      //     // centerTitle: true,
-
-      //     bottom: TabBar(
-      //         isScrollable: true,
-      //         controller: _tabController,
-      //         tabs: Config91.videoCategories.keys.map((String key) {
-      //           return Tab(child: Text(key));
-      //         }).toList()),
-      //   ),
-      //   body: TabBarView(
-      //       controller: _tabController,
-      //       children: Config91.videoCategories.values.map((String url) {
-      //         return Tab(
-      //           child: new My91TabPage(url),
-      //         );
-      //       }).toList()),
-      // );
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: new Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            TabBar(
+                isScrollable: true,
+                controller: _tabController,
+                tabs: Config91.videoCategories.keys.map((String key) {
+                  return Tab(
+                      child: Text(
+                    key,
+                    style: TextStyle(backgroundColor: Colors.blue),
+                  ));
+                }).toList()),
+          ],
+        ),
+      ),
+      body: TabBarView(
+          controller: _tabController,
+          children: Config91.videoCategories.values.map((String url) {
+            return Tab(
+              child: new My91TabPage(url),
+            );
+          }).toList()),
     );
   }
 }
