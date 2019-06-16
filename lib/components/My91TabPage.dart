@@ -75,6 +75,7 @@ class _My91TabPageState extends State<My91TabPage>
               subtitle: Row(
                 children: <Widget>[
                   Text('时长:' + item.duration),
+                  // TODO: 这里还要加上几个信息
                   Text('时长:' + item.duration),
                   Text('上传时间:' + item.postDate)
                 ],
