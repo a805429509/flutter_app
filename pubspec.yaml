@@ -43,6 +43,8 @@ dependencies:
       url: https://github.com/a805429509/flutter_lamp.git
   # 查看设备信息
   device_info: ^0.4.0+1
+  # 等待widget
+  progress_dialog: ^1.1.0+1
 
 
 dev_dependencies:
