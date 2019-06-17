@@ -15,7 +15,6 @@ class _MySearchPageState extends State<MySearchPage> {
   final _controller = TextEditingController();
   List<Torrent> _data = [];
   bool _requsted = false;
-  ProgressDialog pr;
 
   @override
   void initState() {
@@ -27,7 +26,7 @@ class _MySearchPageState extends State<MySearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    pr = new ProgressDialog(context, ProgressDialogType.Normal);
+    var pr = new ProgressDialog(context, ProgressDialogType.Normal);
     pr.setMessage('正在处理中...');
     return Scaffold(
       key: _scaffold,
@@ -84,7 +83,6 @@ class _MySearchPageState extends State<MySearchPage> {
                               )
                             ],
                           ),
-                          // TODO: 把种子一键复制到粘贴板
                           trailing: IconButton(
                             icon: Icon(Icons.content_copy),
                             onPressed: () {

@@ -45,6 +45,8 @@ dependencies:
   device_info: ^0.4.0+1
   # 等待widget
   progress_dialog: ^1.1.0+1
+  # app目录访问
+  path_provider: ^1.1.0
 
 
 dev_dependencies:
