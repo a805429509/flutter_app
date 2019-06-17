@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/My91Page.dart';
 import 'package:flutter_app/pages/MyFAQPage.dart';
 import 'package:flutter_app/pages/MySearchPage.dart';
+import 'package:flutter_app/pages/MyStuffPage.dart';
 import 'package:flutter_app/pages/MyToolsPage.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,7 +16,8 @@ class _MyHomePageState extends State<MyHomePage> {
     My91Page(),
     MySearchPage(),
     MyToolsPage(),
-    MyFAQPage()
+    MyFAQPage(),
+    MyStuffPage()
   ];
 
   // 准备挪走
@@ -57,7 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.search), title: Text('资源搜索')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.build), title: Text('工具箱')),
-            BottomNavigationBarItem(icon: Icon(Icons.help), title: Text('FAQ'))
+            BottomNavigationBarItem(icon: Icon(Icons.help), title: Text('FAQ')),
+            BottomNavigationBarItem(icon: Icon(Icons.face), title: Text('我的'))
           ],
         ),
       ),

@@ -6,7 +6,6 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:progress_dialog/progress_dialog.dart';
 
 class VideoPage extends StatefulWidget {
   final String videoPage;
@@ -23,20 +22,31 @@ class _VideoPageState extends State<VideoPage> {
   ChewieController _chewieController;
   String videoUrl = '';
   String appDocPath;
+  bool needDownload = true;
 
   @override
   void initState() {
     super.initState();
-    getVideoUrl();
-    getPath();
-    // 给一个默认的地址。不然会有问题。。
-    this._controller = VideoPlayerController.asset('videos/small.mp4');
-    // this._controller = VideoPlayerController.network(
-    //     'http://techslides.com/demos/sample-videos/small.mp4');
-    this._chewieController = ChewieController(
-        videoPlayerController: this._controller,
-        aspectRatio: 3 / 2,
-        autoInitialize: false);
+    if (widget.videoPage.startsWith('/data')) {
+      this.needDownload = false;
+      this._controller = VideoPlayerController.file(new File(widget.videoPage));
+      this._chewieController = ChewieController(
+          videoPlayerController: this._controller,
+          aspectRatio: 3 / 2,
+          autoInitialize: true,
+          autoPlay: true);
+    } else {
+      getVideoUrl();
+      getPath();
+      // 给一个默认的地址。不然会有问题。。
+      this._controller = VideoPlayerController.asset('videos/small.mp4');
+      // this._controller = VideoPlayerController.network(
+      //     'http://techslides.com/demos/sample-videos/small.mp4');
+      this._chewieController = ChewieController(
+          videoPlayerController: this._controller,
+          aspectRatio: 3 / 2,
+          autoInitialize: false);
+    }
   }
 
   void getPath() async {
@@ -72,7 +82,7 @@ class _VideoPageState extends State<VideoPage> {
     debugPrint('新建文件完成');
     File file = new File(this.appDocPath + '/' + widget.videoName + '.mp4');
     debugPrint('开始写入');
-    file.writeAsBytesSync(video.bodyBytes);
+    file.writeAsBytes(video.bodyBytes);
     debugPrint('写入完成');
     debugPrint(file.path);
   }
@@ -88,8 +98,8 @@ class _VideoPageState extends State<VideoPage> {
         controller: this._chewieController,
       ),
       floatingActionButton: MaterialButton(
-        child: Icon(Icons.file_download),
-        onPressed: _downloadVideo,
+        child: this.needDownload ? Icon(Icons.file_download) : Text('已下载'),
+        onPressed: this.needDownload ? _downloadVideo : () {},
       ),
     );
   }
