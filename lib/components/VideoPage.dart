@@ -27,9 +27,15 @@ class _VideoPageState extends State<VideoPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.videoPage.startsWith('/data')) {
+    print(widget.videoPage);
+    if (widget.videoPage.startsWith('/data') ||
+        widget.videoPage.startsWith('/var')) {
       this.needDownload = false;
       this._controller = VideoPlayerController.file(new File(widget.videoPage));
+      print('ok');
+      new File(widget.videoPage).length().then((len) {
+        print(len);
+      });
       this._chewieController = ChewieController(
           videoPlayerController: this._controller,
           aspectRatio: 3 / 2,

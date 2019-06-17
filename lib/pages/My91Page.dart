@@ -8,8 +8,11 @@ class My91Page extends StatefulWidget {
 }
 
 class _My91PageState extends State<My91Page>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController _tabController;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void dispose() {
