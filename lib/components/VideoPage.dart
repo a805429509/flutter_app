@@ -42,7 +42,6 @@ class _VideoPageState extends State<VideoPage> {
 
   Future<void> getVideoUrl() async {
     var _videoUrl = await Api91PornDetail(widget.videoPage).getVideoUrl();
-    debugPrint('视频最终地址:' + _videoUrl);
     if (mounted) {
       setState(() {
         this.videoUrl = _videoUrl;
@@ -65,6 +64,12 @@ class _VideoPageState extends State<VideoPage> {
       ),
       body: Chewie(
         controller: this._chewieController,
+      ),
+      floatingActionButton: MaterialButton(
+        child: Icon(Icons.file_download),
+        onPressed: () {
+          // TODO:下载
+        },
       ),
     );
   }

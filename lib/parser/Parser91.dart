@@ -30,8 +30,12 @@ class Parser91 {
       var duration = regDuration.firstMatch(item.outerHtml).group(0).toString();
 
       // 拿到上传时间
-      RegExp regPostDate = new RegExp(r'\d.*前');
-      var postDate = regPostDate.firstMatch(item.outerHtml).group(0).toString();
+      RegExp regPostDate = new RegExp(r'\d.*\s前');
+      var postDate = regPostDate
+          .firstMatch(item.outerHtml)
+          .group(0)
+          .toString()
+          .replaceAll(' ', '');
 
       // 拿到作者
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api_kitty.dart';
 import 'package:flutter_app/entity/torrent.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:flutter/services.dart';
 
 class MySearchPage extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class MySearchPage extends StatefulWidget {
 }
 
 class _MySearchPageState extends State<MySearchPage> {
+  GlobalKey _scaffold = new GlobalKey();
   final _controller = TextEditingController();
   List<Torrent> _data = [];
   bool _requsted = false;
@@ -18,8 +20,6 @@ class _MySearchPageState extends State<MySearchPage> {
   @override
   void initState() {
     super.initState();
-    pr = new ProgressDialog(context, ProgressDialogType.Normal);
-    pr.setMessage('加载中...');
     // if (this._data.length == 0) {
     //   this._requsted = false;
     // }
@@ -27,7 +27,10 @@ class _MySearchPageState extends State<MySearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context, ProgressDialogType.Normal);
+    pr.setMessage('正在处理中...');
     return Scaffold(
+      key: _scaffold,
       appBar: AppBar(
         title: Text('资源页'),
         centerTitle: true,
@@ -43,7 +46,7 @@ class _MySearchPageState extends State<MySearchPage> {
               decoration: InputDecoration(labelText: '输入资源'),
               onSubmitted: (String name) async {
                 pr.show();
-                var data = await ApiKittyList().getTorrentListByName(name);
+                var data = await ApiKitty().getTorrentListByName(name);
                 setState(() {
                   this._requsted = true;
                   this._data = data;
@@ -82,7 +85,23 @@ class _MySearchPageState extends State<MySearchPage> {
                             ],
                           ),
                           // TODO: 把种子一键复制到粘贴板
-                          trailing: Icon(Icons.content_copy),
+                          trailing: IconButton(
+                            icon: Icon(Icons.content_copy),
+                            onPressed: () {
+                              pr.show();
+                              ApiKitty()
+                                  .getTorrentLink(item.detailPage)
+                                  .then((String torrentLink) {
+                                Clipboard.setData(
+                                    new ClipboardData(text: torrentLink));
+                                pr.hide();
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text('已复制到粘贴板'),
+                                  duration: Duration(seconds: 1),
+                                ));
+                              });
+                            },
+                          ),
                         );
                       }).toList(),
                     )

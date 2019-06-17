@@ -71,16 +71,25 @@ class _My91TabPageState extends State<My91TabPage>
                 // overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              // subtitle: Text('时长' + item.duration),
-              subtitle: Row(
+              subtitle: Wrap(
                 children: <Widget>[
-                  Text('时长:' + item.duration),
-                  // TODO: 这里还要加上几个信息
-                  Text('时长:' + item.duration),
-                  Text('上传时间:' + item.postDate)
+                  Chip(
+                    label: Text('时长:' + item.duration),
+                  ),
+                  Chip(
+                    label: Text('上传时间:' + item.postDate),
+                  ),
                 ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),
+              // subtitle: Row(
+              //   children: <Widget>[
+              //     Text('时长:' + item.duration),
+              //     // TODO: 这里还要加上几个信息
+              //     Text('时长:' + item.duration),
+              //     Text('上传时间:' + item.postDate)
+              //   ],
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // ),
             ))
           ],
         ));

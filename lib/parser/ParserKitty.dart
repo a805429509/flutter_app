@@ -12,7 +12,7 @@ class ParserKitty {
     var listcon = document.querySelectorAll('.list-con');
 
     var data = listcon.map((item) {
-      // a标签是标题
+      // a标签是标题和导航
       var elementA = item.querySelector('a');
       var listB = elementA.querySelectorAll('b');
       var name = listB.map((b) {
@@ -20,6 +20,8 @@ class ParserKitty {
       }).join('');
       print(elementA.text);
       name = name + elementA.text;
+      var detailPage =
+          'http://newbtkitty.co' + elementA.attributes['href'].toString();
 
       // 拿到种子的相关信息
       var elementDD = item.querySelector('.option');
@@ -30,8 +32,15 @@ class ParserKitty {
       var speed = elementSpan[5].querySelector('b').text;
       var hot = elementSpan[6].querySelector('b').text;
 
-      return Torrent(name, pushDate, fileCount, fileSize, speed, hot);
+      return Torrent(
+          name, pushDate, fileCount, fileSize, speed, hot, detailPage);
     }).toList();
+    return data;
+  }
+
+  String parseDetailPage() {
+    var document = parse(this.pageData);
+    var data = document.querySelector('.magnet > a').text;
     return data;
   }
 }
