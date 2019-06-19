@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api_91porn.dart';
 import 'package:video_player/video_player.dart';
@@ -18,15 +19,20 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
+  GlobalKey xx = new GlobalKey();
   VideoPlayerController _controller;
   ChewieController _chewieController;
   String videoUrl = '';
+  Directory directory;
   String appDocPath;
   bool needDownload = true;
+  File file;
+  double jindu;
 
   @override
   void initState() {
     super.initState();
+
     // 给一个默认的地址。不然会有问题。。
     print(widget.videoPage);
 
@@ -56,8 +62,14 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   void getPath() async {
-    Directory directory = await getApplicationDocumentsDirectory();
+    this.directory = await getApplicationDocumentsDirectory();
     this.appDocPath = directory.path;
+    this.file = new File(this.appDocPath + '/' + widget.videoName + '.mp4');
+    if (this.file.existsSync()) {
+      setState(() {
+        this.needDownload = false;
+      });
+    }
   }
 
   @override
@@ -84,13 +96,21 @@ class _VideoPageState extends State<VideoPage> {
 
   void _downloadVideo() async {
     debugPrint('开始下载');
-    var video = await http.get(this.videoUrl);
-    debugPrint('新建文件完成');
-    File file = new File(this.appDocPath + '/' + widget.videoName + '.mp4');
-    debugPrint('开始写入');
-    file.writeAsBytes(video.bodyBytes);
-    debugPrint('写入完成');
-    debugPrint(file.path);
+    Dio().download(
+        this.videoUrl, this.appDocPath + '/' + widget.videoName + '.mp4',
+        onReceiveProgress: (received, total) {
+      if (total != -1) {
+        print('已下载' + (received / total * 100).toStringAsFixed(0) + "%");
+        setState(() {
+          this.jindu = (received / total).toDouble();
+        });
+      }
+      if (total == received) {
+        setState(() {
+          this.needDownload = false;
+        });
+      }
+    });
   }
 
   @override
@@ -100,9 +120,29 @@ class _VideoPageState extends State<VideoPage> {
         title: Text(widget.videoName),
         centerTitle: true,
       ),
-      body: Chewie(
-        controller: this._chewieController,
+      // body: Chewie(
+      //   controller: this._chewieController,
+      // ),
+      body: Column(
+        children: <Widget>[
+          Chewie(
+            controller: this._chewieController,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: this.jindu == null
+                ? Text('')
+                : Column(children: [
+                    LinearProgressIndicator(
+                      key: xx,
+                      value: this.jindu,
+                    ),
+                    Text('已下载' + (this.jindu * 100).round().toString() + '%')
+                  ]),
+          )
+        ],
       ),
+
       floatingActionButton: MaterialButton(
         child: this.needDownload ? Icon(Icons.file_download) : Text('已下载'),
         onPressed: this.needDownload ? _downloadVideo : () {},
