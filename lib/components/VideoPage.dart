@@ -27,27 +27,27 @@ class _VideoPageState extends State<VideoPage> {
   @override
   void initState() {
     super.initState();
+    // 给一个默认的地址。不然会有问题。。
     print(widget.videoPage);
-    if (widget.videoPage.startsWith('/data') ||
-        widget.videoPage.startsWith('/var')) {
+
+    if (widget.videoPage.startsWith('file')) {
       this.needDownload = false;
-      this._controller = VideoPlayerController.file(new File(widget.videoPage));
       print('ok');
-      new File(widget.videoPage).length().then((len) {
-        print(len);
-      });
+      var file = new File(widget.videoPage);
+      print(file);
+      this._controller = VideoPlayerController.file(file);
       this._chewieController = ChewieController(
-          videoPlayerController: this._controller,
-          aspectRatio: 3 / 2,
-          autoInitialize: true,
-          autoPlay: true);
+        videoPlayerController: this._controller,
+        aspectRatio: 3 / 2,
+        autoPlay: true,
+        autoInitialize: true,
+      );
+      print('ok2');
     } else {
       getVideoUrl();
       getPath();
-      // 给一个默认的地址。不然会有问题。。
+
       this._controller = VideoPlayerController.asset('videos/small.mp4');
-      // this._controller = VideoPlayerController.network(
-      //     'http://techslides.com/demos/sample-videos/small.mp4');
       this._chewieController = ChewieController(
           videoPlayerController: this._controller,
           aspectRatio: 3 / 2,

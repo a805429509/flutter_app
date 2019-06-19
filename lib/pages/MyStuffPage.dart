@@ -50,7 +50,7 @@ class _MyStuffPageState extends State<MyStuffPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => VideoPage(
-                            item.path.split('/').last, item.absolute.path)));
+                            item.path.split('/').last, item.uri.toString())));
               },
             );
           }).toList(),
