@@ -42,7 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       title: 'MyApp',
       home: Scaffold(
-        body: homeContent[_currentIndex],
+        // body: homeContent[_currentIndex],
+        body: IndexedStack(
+          index: _currentIndex,
+          children: homeContent,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           // 下面的type可以解决底部超过3个选项的显示问题
           type: BottomNavigationBarType.fixed,

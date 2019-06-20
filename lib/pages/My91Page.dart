@@ -29,6 +29,7 @@ class _My91PageState extends State<My91Page>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: new Column(

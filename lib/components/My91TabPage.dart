@@ -53,6 +53,7 @@ class _My91TabPageState extends State<My91TabPage>
   }
 
   Widget content(VideoInfo91 item) {
+    super.build(context);
     return Container(
         padding: EdgeInsets.all(8),
         child: Row(
@@ -73,7 +74,6 @@ class _My91TabPageState extends State<My91TabPage>
               ),
               subtitle: Wrap(
                 children: <Widget>[
-                  // TODO: 这里还要加上几个信息
                   Chip(
                     label: Text('时长:' + item.duration),
                   ),

@@ -6,7 +6,6 @@ import 'package:flutter_app/api/api_91porn.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
 
 class VideoPage extends StatefulWidget {
   final String videoPage;
@@ -99,16 +98,18 @@ class _VideoPageState extends State<VideoPage> {
     Dio().download(
         this.videoUrl, this.appDocPath + '/' + widget.videoName + '.mp4',
         onReceiveProgress: (received, total) {
-      if (total != -1) {
-        print('已下载' + (received / total * 100).toStringAsFixed(0) + "%");
-        setState(() {
-          this.jindu = (received / total).toDouble();
-        });
-      }
-      if (total == received) {
-        setState(() {
-          this.needDownload = false;
-        });
+      print('已下载' + (received / total * 100).toStringAsFixed(0) + "%");
+      if (mounted) {
+        if (total != -1) {
+          setState(() {
+            this.jindu = (received / total).toDouble();
+          });
+        }
+        if (total == received) {
+          setState(() {
+            this.needDownload = false;
+          });
+        }
       }
     });
   }

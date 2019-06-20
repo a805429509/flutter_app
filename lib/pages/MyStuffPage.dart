@@ -43,15 +43,36 @@ class _MyStuffPageState extends State<MyStuffPage> {
         body: ListView(
           children:
               this.fse.where((item) => item.path.endsWith('.mp4')).map((item) {
-            return ListTile(
-              title: Text(item.path.split('/').last),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => VideoPage(
-                            item.path.split('/').last, item.uri.toString())));
+            return Dismissible(
+              key: Key('key${item.path.split('/').last}'),
+              onDismissed: (dismiss) {
+                item.deleteSync();
               },
+              background: Container(
+                color: Colors.red,
+                // 这里使用 ListTile 因为可以快速设置左右两端的Icon
+                child: ListTile(
+                  leading: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                  trailing: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              child: ListTile(
+                title: Text(item.path.split('/').last),
+                leading: Icon(Icons.ondemand_video),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VideoPage(
+                              item.path.split('/').last, item.uri.toString())));
+                },
+              ),
             );
           }).toList(),
         ),
