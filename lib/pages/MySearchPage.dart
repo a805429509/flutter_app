@@ -45,11 +45,20 @@ class _MySearchPageState extends State<MySearchPage> {
               decoration: InputDecoration(labelText: '输入资源'),
               onSubmitted: (String name) async {
                 pr.show();
-                var data = await ApiKitty().getTorrentListByName(name);
-                setState(() {
-                  this._requsted = true;
-                  this._data = data;
-                });
+                try {
+                  var data = await ApiKitty().getTorrentListByName(name);
+                  setState(() {
+                    this._requsted = true;
+                    this._data = data;
+                  });
+                } catch (_) {
+                  pr.hide();
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('网络有问题，请重试...'),
+                    duration: Duration(seconds: 1),
+                  ));
+                }
+
                 pr.hide();
               },
             ),
@@ -87,17 +96,31 @@ class _MySearchPageState extends State<MySearchPage> {
                             icon: Icon(Icons.content_copy),
                             onPressed: () {
                               pr.show();
-                              ApiKitty()
-                                  .getTorrentLink(item.detailPage)
-                                  .then((String torrentLink) {
-                                Clipboard.setData(
-                                    new ClipboardData(text: torrentLink));
+                              try {
+                                ApiKitty().getTorrentLink(item.detailPage).then(
+                                    (String torrentLink) {
+                                  Clipboard.setData(
+                                      new ClipboardData(text: torrentLink));
+                                  pr.hide();
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text('已复制到粘贴板'),
+                                    duration: Duration(seconds: 1),
+                                  ));
+                                })
+                                  ..catchError(() {
+                                    pr.hide();
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('网络有问题，请重试...'),
+                                      duration: Duration(seconds: 1),
+                                    ));
+                                  });
+                              } catch (_) {
                                 pr.hide();
                                 Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('已复制到粘贴板'),
+                                  content: Text('网络有问题，请重试...'),
                                   duration: Duration(seconds: 1),
                                 ));
-                              });
+                              }
                             },
                           ),
                         );
