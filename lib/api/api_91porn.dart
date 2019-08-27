@@ -31,10 +31,13 @@ class Api91PornDetail {
     var detailPageData =
         await Dio().get(this.url, options: Options(headers: this.headers));
     var data = Parser91(detailPageData.data).parseDetailData();
-    var videoUrlElement = await Dio().post('https://kentxxq.com/nodeapi/',
-        data: {"token": "qwer", "param1": data[0], "param2": data[1]});
+    // var videoUrlElement = await Dio().post('https://kentxxq.com/nodeapi/',
+    //     data: {"token": "qwer", "param1": data[0], "param2": data[1]});
 
-    var document = parse(videoUrlElement.data);
+    // var document = parse(videoUrlElement.data);
+    // var videoUrl =
+    //     document.querySelector('source').attributes['src'].toString();
+    var document = parse(data);
     var videoUrl =
         document.querySelector('source').attributes['src'].toString();
     return videoUrl;

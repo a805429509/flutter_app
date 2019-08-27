@@ -48,17 +48,21 @@ class Parser91 {
     return data;
   }
 
-  List<String> parseDetailData() {
-    RegExp reg1 = new RegExp(r'strencode\(\".*\"\)');
-    var match1 = reg1.firstMatch(this.pageData);
-    var decodeCode = match1.group(0).toString();
-
-    RegExp reg2 = RegExp(r'\".*?\"');
-    var paramIterable = reg2.allMatches(decodeCode);
-    var param1 =
-        paramIterable.toList()[0].group(0).toString().replaceAll('\"', "");
-    var param2 =
-        paramIterable.toList()[1].group(0).toString().replaceAll('\"', "");
-    return [param1, param2];
+  String parseDetailData() {
+    return this.pageData;
   }
+
+  //   List<String> parseDetailData() {
+  //   RegExp reg1 = new RegExp(r'strencode\(\".*\"\)');
+  //   var match1 = reg1.firstMatch(this.pageData);
+  //   var decodeCode = match1.group(0).toString();
+
+  //   RegExp reg2 = RegExp(r'\".*?\"');
+  //   var paramIterable = reg2.allMatches(decodeCode);
+  //   var param1 =
+  //       paramIterable.toList()[0].group(0).toString().replaceAll('\"', "");
+  //   var param2 =
+  //       paramIterable.toList()[1].group(0).toString().replaceAll('\"', "");
+  //   return [param1, param2];
+  // }
 }
